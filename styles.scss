@@ -1,0 +1,211 @@
+$white: #fff;
+$aprimary-color: #3dbac8;
+$black: #000;
+
+$small: 320px;
+$medium: 768px;
+$large: 992px;
+$xlarge: 1200px;
+
+@mixin break($breakpoint...) {
+  @if length($breakpoint)==1 {
+    @media (min-width: nth($breakpoint, 1)) {
+      @content;
+    }
+  }
+
+  @else {
+    @media (min-width: nth($breakpoint, 1)) and (max-width: nth($breakpoint, 2)) {
+      @content;
+    }
+  }
+}
+
+.food {
+
+  .section__background {
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    padding: 3em 0;
+    height: 300px;
+
+    @include break($large) {
+      padding: 7em 0;
+      height: 600px;
+    }
+
+    &.overlay {
+      &:before {
+        content: "";
+        background: rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+    }
+
+    &__heading {
+      margin-top: 20px;
+
+      @include break($large) {
+        margin-top: 150px;
+      }
+
+      &__primary {
+        color: $white;
+        font-size: 3em;
+      }
+
+      &__secondary {
+        color: $aprimary-color;
+        text-transform: uppercase;
+        font-weight: 900;
+        font-size: 2em;
+        letter-spacing: 3px;
+        text-shadow: 0 0 10px white;
+      }
+    }
+
+    &--specialties {
+      background-image: url(https://iili.io/dEFmI2.jpg);
+    }
+    &--menu {
+      background-image: url(https://iili.io/dEFyL7.jpg);
+    }
+
+    & + section {
+      margin-top: -4em;
+    }
+  }
+
+  /* specialties section */
+  .specialties {
+    background: $white;
+    &__item {
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+
+      &__image,
+      &__text {
+        width: 100%;
+
+        @include break($large) {
+          width: 50%;
+        }
+      }
+
+      &__image {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 200px;
+
+        @include break($large) {
+          height: auto;
+        }
+      }
+
+      &__text {
+        padding: 40px;
+        position: relative;
+
+        h3 {
+          margin: 0 0 10px 0;
+          font-size: 18px;
+          text-transform: uppercase;
+          color: $black;
+        }
+
+        p {
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          &.price {
+            font-size: 20px;
+            color: $aprimary-color;
+          }
+        }
+
+        &:before {
+          z-index: 22;
+          right: 100%;
+          top: 50%;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+          border-color: rgba(255, 225, 255, 0);
+          border-right-color: $white;
+          border-width: 12px;
+          margin-top: -12px;
+          display: none;
+
+          @include break($large) {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  /* menu section */
+  .menu {
+    li {
+      padding: 0;
+      margin: 0 0 10px 0;
+      list-style: none;
+      display: block;
+      position: relative;
+
+      .image,
+      .text {
+        display: table-cell;
+        vertical-align: top;
+      }
+      .image {
+        width: 80px;
+
+        img {
+          max-width: 100%;
+          border-radius: 50%;
+        }
+      }
+      .text {
+        padding-left: 20px;
+
+        h3 {
+          margin-top: 0;
+          margin-bottom: 0;
+          font-size: 18px;
+          text-transform: uppercase;
+          color: $black;
+
+          @include break($large) {
+            margin: 15px 0 0px 0;
+          }
+        }
+
+        .price {
+          position: relative;
+          display: block;
+          margin-bottom: 0;
+          color: $aprimary-color;
+          font-size: 20px;
+
+          @include break($large) {
+            position: absolute;
+            top: 15px;
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+}
